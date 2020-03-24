@@ -1,0 +1,9 @@
+{
+    "singleQuote": true,
+    "filepath": "singleQuote",
+    "jsxSingleQuote": false,
+    "htmlWhitespaceSensitivity": "css",
+    "useTabs": false,
+    "trailingComma": "all",
+    "printWidth": 120
+}
