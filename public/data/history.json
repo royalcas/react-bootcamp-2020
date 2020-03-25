@@ -1,0 +1,18 @@
+[
+    {
+        "description": "Nausea or recurrent upset stomach, Abdominal bloating,Abdominal pain, Vomiting",
+        "appointmentDate": "2020-02-02",
+        "diagnosedIllnesses": [
+            "Gastritis"
+        ],
+        "treatment": "Taking antacids and other drugs (such as proton pump inhibitors or H-2 blockers) to reduce stomach acid"
+    },
+    {
+        "description": "difficulty breathing, wheezing, breathing through the mouth, fast breathing, frequent respiratory infections, rapid",
+        "appointmentDate": "1991-02-02",
+        "diagnosedIllnesses": [
+            "Asthma"
+        ],
+        "treatment": "Bronchodilator, Anti-inflammatory, Steroid"
+    }
+]

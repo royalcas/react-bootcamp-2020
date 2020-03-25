@@ -2,7 +2,7 @@ import { Layout, Menu } from 'antd';
 import { AppRoute } from 'appRouting';
 import React, { ReactNode, ReactNodeArray, useState } from 'react';
 import { Link } from 'react-router-dom';
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 export type MainPageTemplateProps = {
   children: ReactNode | ReactNodeArray;

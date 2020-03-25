@@ -1,28 +1,50 @@
-import { Checkbox, Input, InputNumber } from 'antd';
-import { Form, Formik } from 'formik';
-import React from 'react';
-
-export const LoginForm = () => {
-  return (
-    <Formik
-      initialValues={{ username: '', password: '' }}
-      onSubmit={(values, actions) => console.log({ values, actions })}
-      render={() => (
-        <Form>
-          <Input name="username" placeholder="Username" />
-          <InputNumber name="password" type="password" />
-          <Checkbox name="newsletter">Newsletter</Checkbox>
-        </Form>
-      )}
-    />
-  );
-};
-
+import { Button, Row } from 'antd';
+import React, { Fragment, useState } from 'react';
+import { AccessTemplate } from 'shared/@layout/AccessTemplate';
+import LoginConnected from './LoginConnected';
+import './LoginRegister.scss';
+import RegisterConnected from './RegisterConnected';
 export const LoginRegister = () => {
+  const [inLogin, setInLogin] = useState(true);
+
+  const goToRegister = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault();
+    setInLogin(false);
+  };
+
+  const goToLogin = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault();
+    setInLogin(true);
+  };
+
   return (
-    <div>
+    <AccessTemplate>
       <h1>Login & Register</h1>
-      <LoginForm></LoginForm>
-    </div>
+      {inLogin ? (
+        <Fragment>
+          <Row>
+            <div className="register-call-to-action">
+              New user?
+              <Button type="link" onClick={goToRegister} href="#">
+                Create an account
+              </Button>
+            </div>
+          </Row>
+          <LoginConnected></LoginConnected>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Row>
+            <div className="register-call-to-action">
+              Already have an account?
+              <Button type="link" onClick={goToLogin} href="#">
+                Log in
+              </Button>
+            </div>
+          </Row>
+          <RegisterConnected></RegisterConnected>
+        </Fragment>
+      )}
+    </AccessTemplate>
   );
 };

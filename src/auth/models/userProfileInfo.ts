@@ -1,7 +1,7 @@
 export enum UserGender {
   Male = 'male',
   Female = 'female',
-  Undefined = 'undefined',
+  Other = 'other',
 }
 
 export type UserProfileInfo = {
