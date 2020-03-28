@@ -1,18 +1,14 @@
-﻿using HealthApi.WebApi.Configuration;
+﻿using HealthApi.Identity.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthApi.WebApi.AppStart
 {
-	public static class AuthStart
+    public static class AuthStart
 	{
 		public static void AddJwtAuth(this IServiceCollection services, JwtAuthConfig configuration)
 		{

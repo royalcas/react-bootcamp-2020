@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using HealthApi.WebApi.Configuration;
-using HealthApi.WebApi.Model;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using HealthApi.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using HealthApi.Identity.Model;
 
 namespace HealthApi.WebApi.Controllers
 {
@@ -19,74 +9,46 @@ namespace HealthApi.WebApi.Controllers
     [ApiController]
     public class IdentityController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly JwtAuthConfig _configuration;
+        private readonly IIdentityRegisterService _registerService;
+        private readonly IIdentityLoginService _loginService;
 
-        public IdentityController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtAuthConfig> configuration)
+        public IdentityController(IIdentityLoginService loginService, IIdentityRegisterService registerService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _configuration = configuration.CurrentValue;
+            this._registerService = registerService;
+            this._loginService = loginService;
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+            var result = await _loginService.Login(model);
 
-            if (result.Succeeded)
+            if (result.Success)
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Username);
-                return await GenerateJwtToken(model.Username, appUser);
+                return Ok(result);
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return NotFound();
         }
 
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterDto model)
         {
-            var user = new IdentityUser
-            {
-                UserName = model.Email,
-                Email = model.Email
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _registerService.Register(model);
 
-
-            if (result.Succeeded)
+            if (result.Success)
             {
-                await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(model.Email, user);
+                var login = new LoginDto() 
+                {
+                    Username = model.Email,
+                    Password = model.Password,
+                };
+
+                var response = await _loginService.Login(login); 
+                return Ok(response);
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return NotFound();
         }
-
-        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Key));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration.ExpireDays));
-
-            var token = new JwtSecurityToken(
-                _configuration.Issuer,
-                _configuration.Issuer,
-                claims,
-                expires: expires,
-                signingCredentials: credentials
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
     }
 }

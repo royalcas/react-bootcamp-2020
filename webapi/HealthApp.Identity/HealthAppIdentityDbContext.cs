@@ -1,13 +1,15 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace HealthApi.Identity
 {
-	public class HealthAppIdentityDbContext: IdentityDbContext
+	public class HealthApiIdentityDbContext : IdentityDbContext
 	{
-		public HealthAppIdentityDbContext(DbContextOptions<HealthAppIdentityDbContext> options)
-			:base(options)
+		public HealthApiIdentityDbContext(DbContextOptions<HealthApiIdentityDbContext> options)
+			: base(options)
 		{
 		}
 	}
