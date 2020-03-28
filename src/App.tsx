@@ -1,3 +1,4 @@
+import 'App.scss';
 import routes from 'appRouting';
 import { isLoggedInSelector } from 'auth/+state/authSelectors';
 import { LoginRegister } from 'auth/LoginRegister';
@@ -5,7 +6,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MainPageTemplate } from 'shared/@layout/MainPageTemplate';
-import './App.scss';
 
 function App() {
   const isLoggedIn = useSelector(isLoggedInSelector);

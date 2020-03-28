@@ -2,6 +2,7 @@
 using HealthApi.Identity;
 using Microsoft.AspNetCore.Mvc;
 using HealthApi.Identity.Model;
+using System.Net;
 
 namespace HealthApi.WebApi.Controllers
 {
@@ -28,7 +29,7 @@ namespace HealthApi.WebApi.Controllers
                 return Ok(result);
             }
 
-            return NotFound();
+            return Problem("Invalid Credentials");
         }
 
         [HttpPost]
@@ -48,7 +49,7 @@ namespace HealthApi.WebApi.Controllers
                 return Ok(response);
             }
 
-            return NotFound();
+            return Problem("Error in Register");
         }
     }
 }

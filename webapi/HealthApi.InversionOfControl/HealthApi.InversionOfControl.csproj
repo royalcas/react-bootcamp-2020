@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HealthApi.Application\HealthApi.Application.csproj" />
+    <ProjectReference Include="..\HealthApi.Persistence\HealthApi.Persistence.csproj" />
+    <ProjectReference Include="..\HealthApp.Domain\HealthApp.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

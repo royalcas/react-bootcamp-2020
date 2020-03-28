@@ -10,6 +10,7 @@ using FluentValidation.AspNetCore;
 using System.Reflection;
 using HealthApi.Identity.Configuration;
 using HealthApi.WebApi.Filters;
+using HealthApi.InversionOfControl;
 
 namespace HealthApi.WebApi
 {
@@ -25,11 +26,17 @@ namespace HealthApi.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<HealthApiIdentityDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("IdentityDatabase")));
+            System.Action<DbContextOptionsBuilder> dbOptionsBuilder = options =>
+                    options.UseSqlite(Configuration.GetConnectionString("IdentityDatabase")
+            );
+
+            services.AddDbContextPool<HealthApiIdentityDbContext>(dbOptionsBuilder);
+
+            services.AddApplicationServices(dbOptionsBuilder);
 
             services.AddControllers(options =>
                 options.Filters.Add(new HttpResponseExceptionFilter()));
+
 
             var jwtAuthConfig = Configuration.GetSection("JwtAuth").Get<JwtAuthConfig>();
             services.Configure<JwtAuthConfig>(options => Configuration.GetSection("JwtAuth").Bind(options));
