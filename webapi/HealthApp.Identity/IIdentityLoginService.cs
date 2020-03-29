@@ -1,5 +1,4 @@
 ﻿using HealthApi.Identity.Model;
-using HealthApi.Identity.Model;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 

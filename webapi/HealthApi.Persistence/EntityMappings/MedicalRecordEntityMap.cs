@@ -11,6 +11,8 @@ namespace HealthApi.Persistence.EntityMappings
 	{
         public void Configure(EntityTypeBuilder<MedicalRecordItem> builder)
         {
+            builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
             builder.Property(c => c.Details).HasGeneralTextField();
             builder.Property(c => c.Treatment).HasGeneralTextField();

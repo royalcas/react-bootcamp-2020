@@ -9,28 +9,28 @@ export class Http {
     this._authTokenManager = new AuthTokenManager();
   }
 
-  async get<TResponseType = any>(resource: string): Promise<TResponseType> {
+  async get<TResponseType = any>(resource: string, params: any = {}): Promise<TResponseType> {
     const endpoint = this.getEndpointUrlFromResource(resource);
-    const options = this.getRequestConfig();
+    const options = this.getRequestConfig(params);
     const axiosResponse = await axios.get<TResponseType>(endpoint, options);
     return axiosResponse.data;
   }
 
-  async post<TResponseType = any>(resource: string, data: any): Promise<TResponseType> {
+  async post<TResponseType = any>(resource: string, data: any, params: any = {}): Promise<TResponseType> {
     const endpoint = this.getEndpointUrlFromResource(resource);
-    const options = this.getRequestConfig();
+    const options = this.getRequestConfig(params);
     const axiosResponse = await axios.post<TResponseType>(endpoint, data, options);
     return axiosResponse.data;
   }
 
-  async put<TResponseType = any>(resource: string, data: any): Promise<TResponseType> {
+  async put<TResponseType = any>(resource: string, data: any, params: any = {}): Promise<TResponseType> {
     const endpoint = this.getEndpointUrlFromResource(resource);
-    const options = this.getRequestConfig();
+    const options = this.getRequestConfig(params);
     const axiosResponse = await axios.put<TResponseType>(endpoint, data, options);
     return axiosResponse.data;
   }
 
-  private getRequestConfig(): AxiosRequestConfig {
+  private getRequestConfig(params?: any): AxiosRequestConfig {
     const headers: any = {};
 
     if (this._authTokenManager.hasToken()) {
@@ -39,6 +39,7 @@ export class Http {
 
     return {
       headers,
+      params,
     };
   }
 

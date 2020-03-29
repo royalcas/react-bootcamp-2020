@@ -25,7 +25,7 @@ export class AppStorageManager {
   }
 
   hasValue(key: string): boolean {
-    return !isEmpty(localStorage.getRaw(key));
+    return !isEmpty(this.getRaw(key));
   }
 
   clearAll(): void {

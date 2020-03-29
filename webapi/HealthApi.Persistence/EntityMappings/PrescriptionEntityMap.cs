@@ -8,6 +8,7 @@ namespace HealthApi.Persistence.EntityMappings
 	{
         public void Configure(EntityTypeBuilder<Prescription> builder)
         {
+            builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
 
             // Relationships

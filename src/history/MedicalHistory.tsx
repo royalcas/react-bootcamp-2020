@@ -1,14 +1,15 @@
-import { Card, Tag } from 'antd';
+import { Card } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { MedicalHistoryApi } from './api/MedicalHistoryApi';
-import { MedicalHistoryModel } from './models/MedicalHistoryModel';
+import { MedicalRecordApi } from './api/MedicalHistoryApi';
+import { MedicalRecordItem } from './models/MedicalRecordItem';
+
 export const MedicalHistory = () => {
   const [userId] = useState('1');
-  const [medicalHistory, setMedicalHistory] = useState<MedicalHistoryModel[]>([]);
+  const [medicalHistory, setMedicalHistory] = useState<MedicalRecordItem[]>([]);
   useEffect(() => {
-    const api = new MedicalHistoryApi();
-    api.getMedicalHistoryByUser(userId).then(data => {
+    const api = new MedicalRecordApi();
+    api.getMedicalRecord().then(data => {
       setMedicalHistory(data);
     });
   }, [userId]);
@@ -16,13 +17,8 @@ export const MedicalHistory = () => {
     <div>
       <h1>Medical History</h1>
       {medicalHistory.map(record => (
-        <Card bordered={true} about="test" title={moment(record.appointmentDate).format('LLL')}>
-          <div className="main-content">{record.description}</div>
-          <div className="diagnosis">
-            {record.diagnosedIllnesses.map(illness => (
-              <Tag>{illness}</Tag>
-            ))}
-          </div>
+        <Card bordered={true} about="test" title={moment(record.date).format('LLL')}>
+          <div className="main-content">{record.details}</div>
         </Card>
       ))}
     </div>

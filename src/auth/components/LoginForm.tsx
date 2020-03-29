@@ -15,19 +15,42 @@ export type LoginFormProps = {
 };
 
 export const LoginForm = ({ onLogin }: LoginFormProps) => {
-  const onSubmit: (event: React.FormEvent<HTMLFormElement>) => void = event => {
-    event.preventDefault();
-    debugger;
-    onLogin({ username: '', password: '' });
-  };
   return (
-    <Form {...layout} name="basic" onSubmit={onSubmit}>
-      <Form.Item label="Username">
-        <Input name="username" />
+    <Form {...layout} name="basic" onFinish={values => onLogin(values as Credentials)}>
+      <Form.Item
+        label="Email"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Email is required',
+          },
+          {
+            type: 'email',
+            message: 'Enter a valid email address',
+          },
+        ]}
+        validateTrigger="onBlur"
+      >
+        <Input type="email" placeholder="youremail@domain.com" />
       </Form.Item>
 
-      <Form.Item label="Password">
-        <Input.Password name="password" />
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Password is required',
+          },
+          {
+            min: 6,
+            message: 'Password should be 6 characters minimum',
+          },
+        ]}
+        validateTrigger="onBlur"
+      >
+        <Input.Password placeholder="****" />
       </Form.Item>
 
       <Form.Item {...tailLayout}>

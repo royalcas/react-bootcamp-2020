@@ -40,6 +40,7 @@ namespace HealthApi.Identity
             }
 
             var user = _userManager.Users.SingleOrDefault(r => r.Email.Equals(model.Username));
+            response.UserId = user.Id;
             response.AuthorizationToken = GenerateJwtToken(model.Username, user);
 
             return response;
@@ -49,7 +50,9 @@ namespace HealthApi.Identity
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, username),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToUpper()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };

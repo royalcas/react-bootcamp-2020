@@ -1,9 +1,18 @@
-import axios from 'axios';
-import { MedicalHistoryModel } from './../models/MedicalHistoryModel';
+import { Http } from 'shared/api/http';
+import { MedicalRecordItem } from './../models/MedicalRecordItem';
 
-export class MedicalHistoryApi {
-  async getMedicalHistoryByUser(userId: string) {
-    const response = await axios.get('/data/history.json');
-    return response.data as MedicalHistoryModel[];
+export class MedicalRecordApi {
+  private readonly _http: Http;
+
+  constructor() {
+    this._http = new Http();
+  }
+
+  async getMedicalRecord(): Promise<MedicalRecordItem[]> {
+    return await this._http.get<MedicalRecordItem[]>('medicalRecord');
+  }
+
+  async addMedicalRecord(item: MedicalRecordItem): Promise<MedicalRecordItem[]> {
+    return await this._http.post<MedicalRecordItem[]>('medicalRecord', item);
   }
 }

@@ -1,14 +1,11 @@
-export enum UserGender {
-  Other = 0,
-  Male = 1,
-  Female = 2,
-}
+import { UserGender } from './userProfileInfo';
 
-export type UserProfileInfo = {
+export type RegisterFormModel = {
   firstName: string;
   lastName: string;
   gender: UserGender;
   email: string;
   avatarUrl: string;
   birthDate: Date;
+  password: string;
 };

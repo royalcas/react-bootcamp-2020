@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HealthApi.Identity
 {
@@ -8,6 +9,8 @@ namespace HealthApi.Identity
 		{
 			services.AddTransient<IIdentityLoginService, IdentityLoginService>();
 			services.AddTransient<IIdentityRegisterService, IdentityRegisterService>();
+
+			services.AddScoped<IIdentityUserProvider, IdentityUserProvider>();
 		}
 	}
 }

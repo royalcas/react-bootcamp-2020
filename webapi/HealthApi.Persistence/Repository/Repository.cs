@@ -24,7 +24,7 @@ namespace HealthApi.Persistence.Repository
 
         public virtual TEntity GetById(Guid id)
         {
-            return DbSet.Find(id);
+            return DbSet.Find(id.ToString().ToUpper());
         }
 
         public virtual IQueryable<TEntity> GetAll()

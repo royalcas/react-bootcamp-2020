@@ -1,9 +1,10 @@
 export enum LoginActions {
   AttemptLogin = '[Auth Login] Attempt Login',
-  SetLoginResponse = '[Auth Login] Set Login Response',
+  SetUserProfile = '[Auth Login] Set Current User Profile',
+  SetError = '[Auth Login] Set Error Response',
 }
 
 export enum RegisterActions {
-  AttemptLogin = '[Auth Register] Attempt Register',
-  SetLoginResponse = '[Auth Register] Set Register Response',
+  AttemptRegister = '[Auth Register] Attempt Register',
+  SetError = '[Auth Login] Set Error Response',
 }

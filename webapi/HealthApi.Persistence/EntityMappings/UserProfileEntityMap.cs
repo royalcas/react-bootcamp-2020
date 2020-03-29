@@ -11,7 +11,7 @@ namespace HealthApi.Persistence.EntityMappings
 	{
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
-            builder.Property(c => c.Id);
+            builder.HasKey(c => c.Id);
 
             builder.Property(c => c.FirstName).HasGeneralStringField();
             builder.Property(c => c.LastName).HasGeneralStringField();

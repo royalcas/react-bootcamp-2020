@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { attemptLogin } from './+state/actionCreators';
 import { authStateSelector } from './+state/authSelectors';
+import { register } from './+state/registerActionCreators';
 import { RegisterForm } from './components/RegisterForm';
-import { Credentials } from './models/credentials';
+import { RegisterFormModel } from './models/registerFormModel';
+
 const mapDispatchToProps = (dispatch: any) => ({
-  onLogin: (credentials: Credentials) => dispatch(attemptLogin()),
+  onRegister: (registerForm: RegisterFormModel) => dispatch(register(registerForm)),
 });
 
 export default connect(authStateSelector, mapDispatchToProps)(RegisterForm);

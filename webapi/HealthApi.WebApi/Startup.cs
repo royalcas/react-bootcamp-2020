@@ -12,6 +12,7 @@ using HealthApi.Identity.Configuration;
 using HealthApi.WebApi.Filters;
 using HealthApi.InversionOfControl;
 using HealthApi.Persistence;
+using Microsoft.AspNetCore.Http;
 
 namespace HealthApi.WebApi
 {
@@ -27,12 +28,14 @@ namespace HealthApi.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            System.Action<DbContextOptionsBuilder> dbOptionsBuilder = options =>
+            void dbOptionsBuilder(DbContextOptionsBuilder options) =>
                     options.UseSqlite(Configuration.GetConnectionString("IdentityDatabase")
             );
 
             services.AddDbContextPool<HealthApiIdentityDbContext>(dbOptionsBuilder);
 
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddApplicationServices(dbOptionsBuilder);
 
             services.AddControllers(options =>
@@ -44,6 +47,14 @@ namespace HealthApi.WebApi
             services.AddIdentityConfig();
             services.AddJwtAuth(jwtAuthConfig);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
         }
@@ -53,10 +64,14 @@ namespace HealthApi.WebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HealthApiIdentityDbContext identityDbContext, HealthAppContext appContext)
         {
             app.UseExceptionHandling(env);
-            app.UseHttpsRedirection();
+            if (!env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HealthApi.Application.Services;
 using HealthApi.Identity;
 using HealthApi.Identity.Model;
 using HealthApi.WebApi.Model;
-using HealthApp.Domain;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthApi.WebApi.Controllers
@@ -19,12 +16,18 @@ namespace HealthApi.WebApi.Controllers
         private readonly IUserProfileService _userProfileService;
         private readonly IIdentityRegisterService _registerService;
         private readonly IIdentityLoginService _loginService;
+        private readonly IIdentityUserProvider _user;
 
-        public AccountController(IUserProfileService userProfileService, IIdentityRegisterService registerService, IIdentityLoginService loginService)
+        public AccountController(
+            IUserProfileService userProfileService,
+            IIdentityRegisterService registerService,
+            IIdentityLoginService loginService,
+            IIdentityUserProvider user)
         {
             this._userProfileService = userProfileService;
             this._registerService = registerService;
             this._loginService = loginService;
+            this._user = user;
         }
 
         [HttpPost]
@@ -38,6 +41,12 @@ namespace HealthApi.WebApi.Controllers
             }
 
             return Problem("Invalid Credentials");
+        }
+        [Authorize]
+        public IActionResult Profile()
+        {
+            var userProfile = _userProfileService.GetById(_user.Id);
+            return Ok(userProfile);
         }
 
 

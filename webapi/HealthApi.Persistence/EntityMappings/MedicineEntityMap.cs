@@ -8,6 +8,8 @@ namespace HealthApi.Persistence.EntityMappings
 	{
         public void Configure(EntityTypeBuilder<Medication> builder)
         {
+            builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
             builder.Property(c => c.Name).HasGeneralStringField();
         }
