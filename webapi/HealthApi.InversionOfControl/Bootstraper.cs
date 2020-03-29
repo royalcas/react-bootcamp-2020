@@ -15,12 +15,14 @@ namespace HealthApi.InversionOfControl
 			services.AddDbContextPool<HealthAppContext>(dbOptionsBuilder);
 
 			// Data
+			services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 			services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<HealthAppContext>();
 
 			// Services
 			services.AddScoped<IUserProfileService, UserProfileService>();
+			services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 		}
 
 	}
