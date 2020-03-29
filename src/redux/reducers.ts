@@ -1,4 +1,4 @@
-import AuthReducer, { AuthState } from 'auth/+state/reducers';
+import AuthReducer, { AuthState } from 'auth/+state/authReducer';
 import { combineReducers } from 'redux';
 
 export type State = {

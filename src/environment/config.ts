@@ -6,3 +6,5 @@ export type AppConfig = {
 };
 
 export const config = process.env.REACT_APP_STAGE === 'prod' ? ProdConfig : DevConfig;
+
+export default config;
