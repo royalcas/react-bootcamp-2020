@@ -5,9 +5,10 @@ import React from 'react';
 export type LoginFormProps = {
   onLogin: (credentials: Credentials) => void;
   errorLogin?: boolean;
+  attemptingLogin?: boolean;
 };
 
-export const LoginForm = ({ onLogin, errorLogin }: LoginFormProps) => {
+export const LoginForm = ({ onLogin, errorLogin, attemptingLogin }: LoginFormProps) => {
   return (
     <Form name="basic" layout="vertical" onFinish={values => onLogin(values as Credentials)}>
       {errorLogin ? <Alert style={{ marginBottom: 15 }} message="Invalid Credentials" type="error" /> : <></>}
@@ -48,7 +49,7 @@ export const LoginForm = ({ onLogin, errorLogin }: LoginFormProps) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={attemptingLogin}>
           Login
         </Button>
       </Form.Item>

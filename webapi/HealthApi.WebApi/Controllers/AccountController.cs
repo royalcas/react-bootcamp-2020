@@ -4,6 +4,7 @@ using HealthApi.Application.Services;
 using HealthApi.Identity;
 using HealthApi.Identity.Model;
 using HealthApi.WebApi.Model;
+using HealthApp.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,10 +44,21 @@ namespace HealthApi.WebApi.Controllers
             return Problem("Invalid Credentials");
         }
         [Authorize]
+        [HttpGet]
         public IActionResult Profile()
         {
             var userProfile = _userProfileService.GetById(_user.Id);
             return Ok(userProfile);
+        }
+
+        [Authorize]
+        [HttpPut]
+        public IActionResult UpdateProfile([FromBody] UserProfile profile)
+        {
+            profile.Id = _user.Id;
+            profile.Email = _user.Email;
+            _userProfileService.Update(profile);
+            return Ok();
         }
 
 

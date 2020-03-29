@@ -35,9 +35,9 @@ export const reducer = (state: AuthState = initialState, action: AnyAction): Aut
     case RegisterActions.AttemptRegister:
       return { ...state, isLoggedIn: false, attemptingRegister: true, loadingSessionInfo: false };
     case RegisterActions.SetError:
-      return { ...state, isLoggedIn: false, errorRegister: true, loadingSessionInfo: false };
+      return { ...state, isLoggedIn: false, attemptingRegister: false, errorRegister: true, loadingSessionInfo: false };
     case LoginActions.SetError:
-      return { ...state, isLoggedIn: false, errorLogin: true, loadingSessionInfo: false };
+      return { ...state, isLoggedIn: false, attemptingLogin: false, errorLogin: true, loadingSessionInfo: false };
     case LoginActions.Logout:
       return initialState;
     default:

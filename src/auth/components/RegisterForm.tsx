@@ -76,39 +76,42 @@ export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
       >
         <DatePicker />
       </Form.Item>
+      {!editMode && (
+        <>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              { required: true, message: 'Password is required' },
+              {
+                min: 6,
+                message: 'Password should be 6 characters minimum',
+              },
+            ]}
+            validateTrigger="onBlur"
+          >
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[
-          { required: true, message: 'Password is required' },
-          {
-            min: 6,
-            message: 'Password should be 6 characters minimum',
-          },
-        ]}
-        validateTrigger="onBlur"
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        label="Confirm Password"
-        name="passwordConfirm"
-        rules={[
-          { required: true, message: 'Please confirm your password' },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject('The two passwords that you entered do not match!');
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
+          <Form.Item
+            label="Confirm Password"
+            name="passwordConfirm"
+            rules={[
+              { required: true, message: 'Please confirm your password' },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('The two passwords that you entered do not match!');
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+        </>
+      )}
 
       <Form.Item>
         <Button type="primary" htmlType="submit">

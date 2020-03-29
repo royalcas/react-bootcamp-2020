@@ -28,9 +28,15 @@ namespace HealthApi.Application.Services
             return _repository.GetById(id);
         }
 
-        public void Add(TEntity profile)
+        public void Add(TEntity entity)
         {
-            _repository.Add(profile);
+            _repository.Add(entity);
+            _unitOfWork.Commit();
+        }
+
+        public void Update(TEntity entity)
+        {
+            _repository.Update(entity);
             _unitOfWork.Commit();
         }
     }

@@ -9,5 +9,7 @@ namespace HealthApi.Application.Services
 		void Add(TEntity profile);
 		IEnumerable<TEntity> GetAll();
 		TEntity GetById(string id);
+
+		void Update(TEntity entity);
 	}
 }

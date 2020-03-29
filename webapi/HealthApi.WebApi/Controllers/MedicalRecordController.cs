@@ -42,6 +42,7 @@ namespace HealthApi.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("medical-record")]
         public ActionResult Post([FromBody] MedicalRecordItem model)
         {
             _service.Add(model);
