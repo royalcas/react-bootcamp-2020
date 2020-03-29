@@ -4,6 +4,8 @@
 	{
 		public bool Success { get; set; }
 		public string AuthorizationToken { get; set; }
+
+		public string UserId { get; set; }
 	}
 }
 

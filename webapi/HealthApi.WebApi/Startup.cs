@@ -11,6 +11,7 @@ using System.Reflection;
 using HealthApi.Identity.Configuration;
 using HealthApi.WebApi.Filters;
 using HealthApi.InversionOfControl;
+using HealthApi.Persistence;
 
 namespace HealthApi.WebApi
 {
@@ -49,7 +50,7 @@ namespace HealthApi.WebApi
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HealthApiIdentityDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HealthApiIdentityDbContext identityDbContext, HealthAppContext appContext)
         {
             app.UseExceptionHandling(env);
             app.UseHttpsRedirection();
@@ -64,7 +65,8 @@ namespace HealthApi.WebApi
                 endpoints.MapControllers();
             });
 
-            dbContext.Database.EnsureCreated();
+            identityDbContext.Database.EnsureCreated();
+            appContext.Database.EnsureCreated();
         }
     }
 }

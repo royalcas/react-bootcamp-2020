@@ -39,7 +39,7 @@ namespace HealthApi.Identity
                 return response;
             }
 
-            var user = _userManager.Users.SingleOrDefault(r => r.Email == model.Username);
+            var user = _userManager.Users.SingleOrDefault(r => r.Email.Equals(model.Username));
             response.AuthorizationToken = GenerateJwtToken(model.Username, user);
 
             return response;

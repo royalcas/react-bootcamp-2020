@@ -16,6 +16,7 @@ namespace HealthApi.InversionOfControl
 
 			// Data
 			services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<HealthAppContext>();
 
 			// Services

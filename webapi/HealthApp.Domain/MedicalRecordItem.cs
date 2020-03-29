@@ -12,6 +12,6 @@ namespace HealthApp.Domain
 		public Guid UserId { get; set; }
 		public UserProfile User { get; set; }
 
-		public IEnumerable<Medication> Medicine { get; set; }
+		public IEnumerable<Prescription> Prescriptions { get; set; }
 	}
 }

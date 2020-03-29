@@ -49,9 +49,6 @@ namespace HealthApi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("MedicalRecordItemId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -62,9 +59,31 @@ namespace HealthApi.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("Medications");
+                });
+
+            modelBuilder.Entity("HealthApp.Domain.Prescription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("MedicalRecordItemId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("MedicationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Quantity")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("MedicalRecordItemId");
 
-                    b.ToTable("Medications");
+                    b.HasIndex("MedicationId");
+
+                    b.ToTable("Prescriptions");
                 });
 
             modelBuilder.Entity("HealthApp.Domain.UserProfile", b =>
@@ -113,11 +132,19 @@ namespace HealthApi.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HealthApp.Domain.Medication", b =>
+            modelBuilder.Entity("HealthApp.Domain.Prescription", b =>
                 {
-                    b.HasOne("HealthApp.Domain.MedicalRecordItem", null)
-                        .WithMany("Medicine")
-                        .HasForeignKey("MedicalRecordItemId");
+                    b.HasOne("HealthApp.Domain.MedicalRecordItem", "MedicalRecordItem")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("MedicalRecordItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HealthApp.Domain.Medication", "Medication")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("MedicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,7 @@ namespace HealthApi.Persistence
 		public DbSet<UserProfile> Users { get; set; }
 		public DbSet<MedicalRecordItem> MedicalRecords { get; set; }
 		public DbSet<Medication> Medications { get; set; }
+		public DbSet<Prescription> Prescriptions { get; set; }
 
 		public HealthAppContext(DbContextOptions<HealthAppContext> options) : base(options) { }
 
@@ -18,6 +19,7 @@ namespace HealthApi.Persistence
 			modelBuilder.ApplyConfiguration(new UserProfileEntityMap());
 			modelBuilder.ApplyConfiguration(new MedicalRecordEntityMap());
 			modelBuilder.ApplyConfiguration(new MedicineEntityMap());
+			modelBuilder.ApplyConfiguration(new PrescriptionEntityMap());
 
 			base.OnModelCreating(modelBuilder);
 		}

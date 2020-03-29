@@ -17,6 +17,12 @@ namespace HealthApi.Persistence.EntityMappings
             builder.Property(c => c.LastName).HasGeneralStringField();
             builder.Property(c => c.Email).HasGeneralStringField();
             builder.Property(c => c.AvatarUrl).HasGeneralStringField(GeneralFieldMapping.BigStringSize);
+
+            // Relationships
+            builder.HasMany(c => c.MedicalRecord)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
         }
     }
 }

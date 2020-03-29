@@ -14,8 +14,6 @@ namespace HealthApi.Persistence.EntityMappings
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
             builder.Property(c => c.Details).HasGeneralTextField();
             builder.Property(c => c.Treatment).HasGeneralTextField();
-
-            builder.Property(c => c.UserId).IsRequired();
         }
     }
 }

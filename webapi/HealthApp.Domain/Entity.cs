@@ -4,7 +4,7 @@ namespace HealthApp.Domain
 {
     public abstract class Entity
 	{
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
 
         public override bool Equals(object objToCompare)
         {

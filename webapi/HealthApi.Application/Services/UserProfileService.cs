@@ -7,8 +7,8 @@ namespace HealthApi.Application.Services
 {
 	public class UserProfileService: ApplicationRepositoryService<UserProfile>, IUserProfileService
 	{
-		public UserProfileService(IUserProfileRepository repository)
-			:base(repository)
+		public UserProfileService(IUserProfileRepository repository, IUnitOfWork unitOfWork)
+			:base(repository, unitOfWork)
 		{
 		}
     }

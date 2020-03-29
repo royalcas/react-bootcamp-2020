@@ -3,10 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HealthApi.Persistence.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class BaseRelationshipModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Medications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medications", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -46,23 +59,29 @@ namespace HealthApi.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medications",
+                name: "Prescriptions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 256, nullable: false),
-                    MedicalRecordItemId = table.Column<Guid>(nullable: true)
+                    Quantity = table.Column<float>(nullable: false),
+                    MedicationId = table.Column<Guid>(nullable: false),
+                    MedicalRecordItemId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medications", x => x.Id);
+                    table.PrimaryKey("PK_Prescriptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Medications_MedicalRecords_MedicalRecordItemId",
+                        name: "FK_Prescriptions_MedicalRecords_MedicalRecordItemId",
                         column: x => x.MedicalRecordItemId,
                         principalTable: "MedicalRecords",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Prescriptions_Medications_MedicationId",
+                        column: x => x.MedicationId,
+                        principalTable: "Medications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -71,18 +90,26 @@ namespace HealthApi.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medications_MedicalRecordItemId",
-                table: "Medications",
+                name: "IX_Prescriptions_MedicalRecordItemId",
+                table: "Prescriptions",
                 column: "MedicalRecordItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prescriptions_MedicationId",
+                table: "Prescriptions",
+                column: "MedicationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Medications");
+                name: "Prescriptions");
 
             migrationBuilder.DropTable(
                 name: "MedicalRecords");
+
+            migrationBuilder.DropTable(
+                name: "Medications");
 
             migrationBuilder.DropTable(
                 name: "Users");
