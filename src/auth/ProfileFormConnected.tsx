@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { authStateSelector } from './+state/authSelectors';
 import { register } from './+state/registerActionCreators';
@@ -8,4 +9,15 @@ const mapDispatchToProps = (dispatch: any) => ({
   onSubmit: (registerForm: RegisterFormModel) => dispatch(register(registerForm)),
 });
 
-export default connect(authStateSelector, mapDispatchToProps)(RegisterForm);
+export const ProfileFormConnectedOnly = connect(authStateSelector, mapDispatchToProps)(RegisterForm);
+
+export const ProfileFormConnectedPage = () => {
+  return (
+    <>
+      <h1>Profile</h1>
+      <ProfileFormConnectedOnly />{' '}
+    </>
+  );
+};
+
+export default ProfileFormConnectedPage;

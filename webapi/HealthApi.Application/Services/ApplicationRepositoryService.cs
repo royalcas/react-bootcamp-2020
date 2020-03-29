@@ -5,12 +5,14 @@ using System.Collections.Generic;
 
 namespace HealthApi.Application.Services
 {
-    public abstract class ApplicationRepositoryService<TEntity> : IApplicationRepositoryService<TEntity> where TEntity : Entity
+    public abstract class ApplicationRepositoryService<TRepository, TEntity> : IApplicationRepositoryService<TEntity> 
+        where TEntity : Entity 
+        where TRepository: IRepository<TEntity>
     {
-        private readonly IRepository<TEntity> _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        protected readonly TRepository _repository;
+        protected readonly IUnitOfWork _unitOfWork;
 
-        public ApplicationRepositoryService(IRepository<TEntity> repository, IUnitOfWork unitOfWork)
+        public ApplicationRepositoryService(TRepository repository, IUnitOfWork unitOfWork)
         {
             this._repository = repository;
             this._unitOfWork = unitOfWork;
@@ -21,7 +23,7 @@ namespace HealthApi.Application.Services
             return _repository.GetAll();
         }
 
-        public TEntity GetById(Guid id)
+        public TEntity GetById(string id)
         {
             return _repository.GetById(id);
         }

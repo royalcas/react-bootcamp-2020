@@ -1,40 +1,63 @@
 import { Button, DatePicker, Form, Input, Select } from 'antd';
 import { RegisterFormModel } from 'auth/models/registerFormModel';
-import { UserGender } from 'auth/models/userProfileInfo';
-import React from 'react';
+import { UserGender, UserProfileInfo } from 'auth/models/userProfileInfo';
+import { isNil } from 'lodash';
+import React, { useState } from 'react';
 import { AvatarField } from 'shared/avatar/AvatarField';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 const { Option } = Select;
 
 export type RegisterFormProps = {
-  onRegister: (form: RegisterFormModel) => void;
+  onSubmit: (form: RegisterFormModel) => void;
+  userInfo: UserProfileInfo;
 };
 
-export const RegisterForm = ({ onRegister }: RegisterFormProps) => {
+export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
+  const editMode = !isNil(userInfo);
+  const initialValues = userInfo || { gender: UserGender.Male };
+  const [gender, setGender] = useState(initialValues.gender);
+
   return (
-    <Form {...layout} name="basic" onFinish={values => onRegister(values as RegisterFormModel)}>
+    <Form
+      layout="vertical"
+      name="basic"
+      onFinish={values => onSubmit(values as RegisterFormModel)}
+      // initialValues={initialValues}
+    >
       <Form.Item
         label="First Name"
         name="firstName"
-        rules={[{ required: true, message: 'Please input your name!' }]}
-        required={true}
+        rules={[{ required: true, message: 'First Name is required' }]}
+        validateTrigger="onBlur"
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Last Name"
+        name="lastName"
+        rules={[{ required: true, message: 'Last Name is required' }]}
+        validateTrigger="onBlur"
       >
         <Input />
       </Form.Item>
 
-      <Form.Item label="Email" name="email">
-        <Input type="email" />
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: 'Last Name is required' },
+          {
+            type: 'email',
+            message: 'Enter a valid email address',
+          },
+        ]}
+        validateTrigger="onBlur"
+      >
+        <Input type="email" disabled={editMode} />
       </Form.Item>
 
-      <Form.Item label="Gender" name="gender">
-        <Select defaultValue={UserGender.Male}>
+      <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Gender is required' }]}>
+        <Select defaultValue={gender} onSelect={setGender}>
           <Option value={UserGender.Male}>Male</Option>
           <Option value={UserGender.Female}>Female</Option>
           <Option value={UserGender.Other}>Other</Option>
@@ -42,24 +65,54 @@ export const RegisterForm = ({ onRegister }: RegisterFormProps) => {
       </Form.Item>
 
       <Form.Item label="Avatar" name="avatarUrl">
-        <AvatarField gender="male" />
+        <AvatarField gender={gender} />
       </Form.Item>
 
-      <Form.Item label="Birth Date" name="birthDate">
+      <Form.Item
+        label="Birth Date"
+        name="birthDate"
+        rules={[{ required: true, message: 'Birth Date is required' }]}
+        validateTrigger="onBlur"
+      >
         <DatePicker />
       </Form.Item>
 
-      <Form.Item label="Password" name="password">
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          { required: true, message: 'Password is required' },
+          {
+            min: 6,
+            message: 'Password should be 6 characters minimum',
+          },
+        ]}
+        validateTrigger="onBlur"
+      >
         <Input.Password />
       </Form.Item>
 
-      <Form.Item label="Confirm Password" name="passwordConfirm">
+      <Form.Item
+        label="Confirm Password"
+        name="passwordConfirm"
+        rules={[
+          { required: true, message: 'Please confirm your password' },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject('The two passwords that you entered do not match!');
+            },
+          }),
+        ]}
+      >
         <Input.Password />
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
-          Register
+          {!editMode ? 'Register' : 'Save'}
         </Button>
       </Form.Item>
     </Form>

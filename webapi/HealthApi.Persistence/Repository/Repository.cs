@@ -22,9 +22,9 @@ namespace HealthApi.Persistence.Repository
             DbSet.Add(obj);
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual TEntity GetById(string id)
         {
-            return DbSet.Find(id.ToString().ToUpper());
+            return DbSet.Find(id);
         }
 
         public virtual IQueryable<TEntity> GetAll()
@@ -37,7 +37,7 @@ namespace HealthApi.Persistence.Repository
             DbSet.Update(obj);
         }
 
-        public virtual void Remove(Guid id)
+        public virtual void Remove(string id)
         {
             DbSet.Remove(DbSet.Find(id));
         }

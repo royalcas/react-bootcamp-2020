@@ -2,7 +2,8 @@ import { Layout, Menu } from 'antd';
 import { AppRoute } from 'appRouting';
 import React, { ReactNode, ReactNodeArray, useState } from 'react';
 import { Link } from 'react-router-dom';
-const { Content, Footer, Sider } = Layout;
+import { HeaderTemplate } from './HeaderTemplate';
+const { Content, Footer, Sider, Header } = Layout;
 
 export type MainPageTemplateProps = {
   children: ReactNode | ReactNodeArray;
@@ -10,7 +11,7 @@ export type MainPageTemplateProps = {
 };
 
 export const MainPageTemplate = ({ children, menu }: MainPageTemplateProps) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   return (
     <div className="pageContainer">
       <Layout style={{ minHeight: '100vh' }}>
@@ -29,6 +30,9 @@ export const MainPageTemplate = ({ children, menu }: MainPageTemplateProps) => {
           </Menu>
         </Sider>
         <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            <HeaderTemplate />
+          </Header>
           <Content style={{ margin: '10px 16px' }}>{children}</Content>
           <Footer style={{ textAlign: 'center' }}>React Bootcamp 2020</Footer>
         </Layout>

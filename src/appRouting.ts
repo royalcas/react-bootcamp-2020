@@ -1,9 +1,10 @@
 import { DesktopOutlined, PieChartOutlined } from '@ant-design/icons';
 import { AntdIconProps } from '@ant-design/icons/lib/components/AntdIcon';
+import ProfileFormConnected from 'auth/ProfileFormConnected';
+import MedicalHistoryConnected from 'history/MedicalHistoryConnected';
 import { ReactNode } from 'react';
 import { LoginRegister } from './auth/LoginRegister';
 import { Dashboard } from './dashboard/Dashboard';
-import { MedicalHistory } from './history/MedicalHistory';
 
 export type AppRoute = {
   path: string;
@@ -34,7 +35,13 @@ export const routes: AppRoute[] = [
     text: 'Medical History',
     showInMainMenu: true,
     icon: DesktopOutlined,
-    component: MedicalHistory,
+    component: MedicalHistoryConnected,
+  },
+  {
+    path: '/profile',
+    text: 'Profile',
+    showInMainMenu: false,
+    component: ProfileFormConnected,
   },
 ];
 

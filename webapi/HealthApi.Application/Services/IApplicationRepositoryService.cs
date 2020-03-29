@@ -8,6 +8,6 @@ namespace HealthApi.Application.Services
 	{
 		void Add(TEntity profile);
 		IEnumerable<TEntity> GetAll();
-		TEntity GetById(Guid id);
+		TEntity GetById(string id);
 	}
 }

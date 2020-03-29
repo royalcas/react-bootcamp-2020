@@ -9,7 +9,7 @@ export class MedicalRecordApi {
   }
 
   async getMedicalRecord(): Promise<MedicalRecordItem[]> {
-    return await this._http.get<MedicalRecordItem[]>('medicalRecord');
+    return await this._http.get<MedicalRecordItem[]>('me/medicalRecord');
   }
 
   async addMedicalRecord(item: MedicalRecordItem): Promise<MedicalRecordItem[]> {

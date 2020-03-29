@@ -11,3 +11,20 @@
 .site-layout-background {
   background: #fff;
 }
+
+.profile-button {
+  padding-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &.ant-dropdown-open {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .user-full-name {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

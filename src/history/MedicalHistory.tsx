@@ -1,26 +1,42 @@
 import { Card } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { MedicalRecordApi } from './api/MedicalHistoryApi';
+import React, { useEffect } from 'react';
+import { DataList } from 'shared/dataList/DataList';
 import { MedicalRecordItem } from './models/MedicalRecordItem';
 
-export const MedicalHistory = () => {
-  const [userId] = useState('1');
-  const [medicalHistory, setMedicalHistory] = useState<MedicalRecordItem[]>([]);
+export type MedicalHistoryProps = {
+  onInit: () => void;
+  isLoading: boolean;
+  hasErrors: boolean;
+  pageData: MedicalRecordItem[];
+};
+
+export const MedicalHistoryItem = ({ item }: { item: MedicalRecordItem }) => {
+  return (
+    <Card bordered={true} about="test" title={moment(item.date).format('LLL')}>
+      <div className="main-content">{item.details}</div>
+    </Card>
+  );
+};
+
+export const MedicalHistory = ({ onInit, isLoading, hasErrors, pageData }: MedicalHistoryProps) => {
   useEffect(() => {
-    const api = new MedicalRecordApi();
-    api.getMedicalRecord().then(data => {
-      setMedicalHistory(data);
-    });
-  }, [userId]);
+    onInit();
+  }, [onInit]);
+
   return (
     <div>
-      <h1>Medical History</h1>
-      {medicalHistory.map(record => (
-        <Card bordered={true} about="test" title={moment(record.date).format('LLL')}>
-          <div className="main-content">{record.details}</div>
-        </Card>
-      ))}
+      <h1>Medical Record</h1>
+      <div className="medical-record-container">
+        <DataList
+          isLoading={isLoading}
+          data={pageData}
+          emptyMessage="No Medical Record Yet"
+          callToActionText="Start Now!"
+        >
+          {(item: MedicalRecordItem) => <MedicalHistoryItem key={item.id} item={item}></MedicalHistoryItem>}
+        </DataList>
+      </div>
     </div>
   );
 };

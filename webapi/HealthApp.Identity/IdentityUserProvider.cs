@@ -21,7 +21,7 @@ namespace HealthApi.Identity
 
         public string Email => GetEmail();
 
-        public Guid Id => new Guid(GetId());
+        public string Id => GetId();
 
         private string GetName()
         {

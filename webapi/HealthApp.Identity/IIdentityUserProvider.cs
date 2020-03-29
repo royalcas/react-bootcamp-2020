@@ -6,7 +6,7 @@ namespace HealthApi.Identity
 {
 	public interface IIdentityUserProvider
 	{
-		Guid Id { get; }
+		string Id { get; }
 		string Name { get; }
 		string Email { get; }
 

@@ -1,5 +1,5 @@
 import { Action } from 'redux';
 
-export interface FluxAction<TPayload> extends Action {
+export interface FluxAction<TActionType, TPayload> extends Action<TActionType> {
   payload: TPayload;
 }

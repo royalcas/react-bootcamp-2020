@@ -2,9 +2,12 @@
 
 namespace HealthApp.Domain
 {
+    /// <summary>
+    /// Issues on query when definning Guid Entities SQLite https://github.com/dotnet/efcore/issues/19651
+    /// </summary>
     public abstract class Entity
 	{
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public override bool Equals(object objToCompare)
         {

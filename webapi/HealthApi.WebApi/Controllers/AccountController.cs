@@ -66,7 +66,7 @@ namespace HealthApi.WebApi.Controllers
                 return Problem("Error Registering user on Identity");
             }
 
-            model.Id = new Guid(registerResponse.UserId);
+            model.Id = registerResponse.UserId;
             _userProfileService.Add(model);
 
             var loginRequest = new LoginDto()

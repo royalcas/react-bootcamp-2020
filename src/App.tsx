@@ -1,18 +1,29 @@
 import 'App.scss';
 import routes from 'appRouting';
-import { isLoggedInSelector } from 'auth/+state/authSelectors';
+import { loadLoginInfo } from 'auth/+state/actionCreators';
+import { isLoadingSessionInfoSelector, isLoggedInSelector } from 'auth/+state/authSelectors';
 import { LoginRegister } from 'auth/LoginRegister';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MainPageTemplate } from 'shared/@layout/MainPageTemplate';
+import { FullScreenLoading } from 'shared/loading/Loading';
 
 function App() {
   const isLoggedIn = useSelector(isLoggedInSelector);
+  const isLoadingSessionInfo = useSelector(isLoadingSessionInfoSelector);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadLoginInfo());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [1]);
+
   return (
     <div className="App">
       <Router>
-        {isLoggedIn ? (
+        {isLoadingSessionInfo ? (
+          <FullScreenLoading />
+        ) : isLoggedIn ? (
           <MainPageTemplate menu={routes}>
             <Switch>
               {routes.map((route, i) => (

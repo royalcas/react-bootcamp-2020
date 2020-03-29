@@ -9,7 +9,7 @@ namespace HealthApp.Domain
 		public string Details { get; set; }
 		public string Treatment { get; set; }
 
-		public Guid UserId { get; set; }
+		public string UserId { get; set; }
 		public UserProfile User { get; set; }
 
 		public IEnumerable<Prescription> Prescriptions { get; set; }

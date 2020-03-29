@@ -1,22 +1,16 @@
-import { Button, Form, Input } from 'antd';
+import { Alert, Button, Form, Input } from 'antd';
 import Credentials from 'auth/models/credentials';
 import React from 'react';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 export type LoginFormProps = {
   onLogin: (credentials: Credentials) => void;
+  errorLogin?: boolean;
 };
 
-export const LoginForm = ({ onLogin }: LoginFormProps) => {
+export const LoginForm = ({ onLogin, errorLogin }: LoginFormProps) => {
   return (
-    <Form {...layout} name="basic" onFinish={values => onLogin(values as Credentials)}>
+    <Form name="basic" layout="vertical" onFinish={values => onLogin(values as Credentials)}>
+      {errorLogin ? <Alert style={{ marginBottom: 15 }} message="Invalid Credentials" type="error" /> : <></>}
       <Form.Item
         label="Email"
         name="username"
@@ -53,7 +47,7 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
         <Input.Password placeholder="****" />
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           Login
         </Button>

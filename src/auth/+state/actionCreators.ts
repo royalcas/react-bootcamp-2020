@@ -12,6 +12,18 @@ export const attemptLogin = (): Action<LoginActions> => {
   };
 };
 
+export const setLogout = (): Action<LoginActions> => {
+  return {
+    type: LoginActions.Logout,
+  };
+};
+
+export const setInitSessionInfo = (): Action<LoginActions> => {
+  return {
+    type: LoginActions.SetInitSessionInfo,
+  };
+};
+
 export const setCurrentUser = (userProfile: UserProfileInfo): AnyAction => {
   return {
     type: LoginActions.SetUserProfile,
@@ -35,5 +47,31 @@ export const login = (credentials: Credentials): ThunkAction<void, State, AnyAct
     } catch (error) {
       dispatch(errorLogin());
     }
+  };
+};
+
+export const loadLoginInfo = (): ThunkAction<void, State, AnyAction, Action<LoginActions>> => {
+  const authApi = new AuthApi();
+  return async dispatch => {
+    if (!authApi.isLoggedIn()) {
+      return;
+    }
+
+    dispatch(setInitSessionInfo());
+    try {
+      const userProfile = await authApi.getCurrentUserProfileInfo();
+      dispatch(setCurrentUser(userProfile));
+    } catch (error) {
+      dispatch(errorLogin());
+    }
+  };
+};
+
+export const logout = (): ThunkAction<void, State, AnyAction, Action<LoginActions>> => {
+  const authApi = new AuthApi();
+  return async dispatch => {
+    authApi.logout();
+
+    dispatch(setLogout());
   };
 };

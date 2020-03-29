@@ -7,10 +7,10 @@ namespace HealthApp.Domain
 	{
 		public float Quantity { get; set; }
 
-		public Guid MedicationId { get; set; }
+		public string MedicationId { get; set; }
 		public Medication Medication { get; set; }
 
-		public Guid MedicalRecordItemId { get; set; }
+		public string MedicalRecordItemId { get; set; }
 		public MedicalRecordItem MedicalRecordItem { get; set; }
 	}
 }

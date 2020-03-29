@@ -16,6 +16,10 @@ export class AuthTokenManager {
     this._storage.setRaw(tokenStorageKey, token);
   }
 
+  deleteToken(): void {
+    this._storage.clear(tokenStorageKey);
+  }
+
   getToken(): string {
     return this._storage.getRaw(tokenStorageKey) as string;
   }
