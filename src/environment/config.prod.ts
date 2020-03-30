@@ -1,7 +1,7 @@
 import { AppConfig } from './config';
 
 export const config: AppConfig = {
-  apiBaseUrl: 'http://www.healthapp.com/api/',
+  apiBaseUrl: 'https://healthapi.azurewebsites.net/api/',
 };
 
 export default config;

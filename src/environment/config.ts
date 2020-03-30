@@ -5,6 +5,6 @@ export type AppConfig = {
   apiBaseUrl: string;
 };
 
-export const config = process.env.REACT_APP_STAGE === 'prod' ? ProdConfig : DevConfig;
+export const config = process.env.NODE_ENV === 'production' ? ProdConfig : DevConfig;
 
 export default config;
