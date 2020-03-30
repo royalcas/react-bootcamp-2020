@@ -4,9 +4,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  background: rgb(20, 30, 48);
+  background: linear-gradient(133deg, rgba(20, 30, 48, 1) 0%, rgba(31, 50, 74, 1) 82%, rgba(36, 59, 85, 1) 100%);
   .access-container {
     max-width: 500px;
-    padding: 20px;
+    padding: 30px 60px;
     background-color: white;
   }
 }

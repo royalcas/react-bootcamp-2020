@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Select } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import { RegisterFormModel } from 'auth/models/registerFormModel';
 import { UserGender, UserProfileInfo } from 'auth/models/userProfileInfo';
 import { isNil } from 'lodash';
@@ -24,22 +24,29 @@ export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
       onFinish={values => onSubmit(values as RegisterFormModel)}
       initialValues={initialValues}
     >
-      <Form.Item
-        label="First Name"
-        name="firstName"
-        rules={[{ required: true, message: 'First Name is required' }]}
-        validateTrigger="onBlur"
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Last Name"
-        name="lastName"
-        rules={[{ required: true, message: 'Last Name is required' }]}
-        validateTrigger="onBlur"
-      >
-        <Input />
-      </Form.Item>
+      <Row>
+        <Col span={12}>
+          {' '}
+          <Form.Item
+            label="First Name"
+            name="firstName"
+            rules={[{ required: true, message: 'First Name is required' }]}
+            validateTrigger="onBlur"
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            label="Last Name"
+            name="lastName"
+            rules={[{ required: true, message: 'Last Name is required' }]}
+            validateTrigger="onBlur"
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
 
       <Form.Item
         label="Email"
@@ -55,18 +62,22 @@ export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
       >
         <Input type="email" disabled={editMode} />
       </Form.Item>
-
-      <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Gender is required' }]}>
-        <Select defaultValue={gender} onSelect={setGender}>
-          <Option value={UserGender.Male}>Male</Option>
-          <Option value={UserGender.Female}>Female</Option>
-          <Option value={UserGender.Other}>Other</Option>
-        </Select>
-      </Form.Item>
-
-      <Form.Item label="Avatar" name="avatarUrl">
-        <AvatarField gender={gender} />
-      </Form.Item>
+      <Row>
+        <Col span={12}>
+          <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Gender is required' }]}>
+            <Select defaultValue={gender} onSelect={setGender}>
+              <Option value={UserGender.Male}>Male</Option>
+              <Option value={UserGender.Female}>Female</Option>
+              <Option value={UserGender.Other}>Other</Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item label="Avatar" name="avatarUrl">
+            <AvatarField gender={gender} />
+          </Form.Item>
+        </Col>
+      </Row>
 
       <Form.Item
         label="Birth Date"

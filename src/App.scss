@@ -37,3 +37,8 @@
     font-weight: bold;
   }
 }
+
+.ant-form-item-label > label {
+  height: auto;
+  padding-bottom: 0;
+}

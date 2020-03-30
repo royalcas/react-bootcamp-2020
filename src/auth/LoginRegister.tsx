@@ -19,7 +19,7 @@ export const LoginRegister = () => {
 
   return (
     <AccessTemplate>
-      <h1>Login & Register</h1>
+      <h1>{inLogin ? 'Login' : 'Register'}</h1>
       {inLogin ? (
         <Fragment>
           <Row>

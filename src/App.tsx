@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(loadLoginInfo());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [1]);
+  }, []);
 
   return (
     <div className="App">

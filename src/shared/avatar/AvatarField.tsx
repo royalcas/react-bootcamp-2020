@@ -28,11 +28,11 @@ export const AvatarField = ({ gender, value, onChange }: AvatarFieldProps) => {
 
   return (
     <div className="avatar-field">
-      <Row justify="start">
-        <Col span={4}>
+      <Row justify="center">
+        <Col>
           <Avatar size="large" src={value}></Avatar>
         </Col>
-        <Col span={4}>
+        <Col>
           <Button shape="circle" onClick={generateImage}>
             <ReloadOutlined />
           </Button>

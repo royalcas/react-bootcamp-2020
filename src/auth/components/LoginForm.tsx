@@ -1,3 +1,4 @@
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Alert, Button, Form, Input } from 'antd';
 import Credentials from 'auth/models/credentials';
 import React from 'react';
@@ -13,7 +14,6 @@ export const LoginForm = ({ onLogin, errorLogin, attemptingLogin }: LoginFormPro
     <Form name="basic" layout="vertical" onFinish={values => onLogin(values as Credentials)}>
       {errorLogin ? <Alert style={{ marginBottom: 15 }} message="Invalid Credentials" type="error" /> : <></>}
       <Form.Item
-        label="Email"
         name="username"
         rules={[
           {
@@ -27,11 +27,10 @@ export const LoginForm = ({ onLogin, errorLogin, attemptingLogin }: LoginFormPro
         ]}
         validateTrigger="onBlur"
       >
-        <Input type="email" placeholder="youremail@domain.com" />
+        <Input size="large" placeholder="Email" prefix={<MailOutlined />} />
       </Form.Item>
 
       <Form.Item
-        label="Password"
         name="password"
         rules={[
           {
@@ -45,11 +44,11 @@ export const LoginForm = ({ onLogin, errorLogin, attemptingLogin }: LoginFormPro
         ]}
         validateTrigger="onBlur"
       >
-        <Input.Password placeholder="****" />
+        <Input.Password size="large" placeholder="Password" prefix={<LockOutlined />} />
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={attemptingLogin}>
+        <Button type="primary" htmlType="submit" loading={attemptingLogin} shape="round" size="large" block>
           Login
         </Button>
       </Form.Item>
