@@ -12,7 +12,8 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: healthapp
-  AZURE_WEBAPP_PACKAGE_PATH: 'react-app' # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: 'build'
+  ARTIFACT_NAME: 'react-app'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,8 +35,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: react-app
-          path: build
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
