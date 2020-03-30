@@ -28,9 +28,9 @@ export const AvatarField = ({ gender, value, onChange }: AvatarFieldProps) => {
 
   return (
     <div className="avatar-field">
-      <Row justify="center">
+      <Row gutter={[10, 0]} justify="center" align="middle">
         <Col>
-          <Avatar size="large" src={value}></Avatar>
+          <Avatar size={80} src={value}></Avatar>
         </Col>
         <Col>
           <Button shape="circle" onClick={generateImage}>

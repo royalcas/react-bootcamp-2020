@@ -10,9 +10,10 @@ const { Option } = Select;
 export type RegisterFormProps = {
   onSubmit: (form: RegisterFormModel) => void;
   userInfo: UserProfileInfo;
+  attemptingRegister?: boolean;
 };
 
-export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
+export const RegisterForm = ({ userInfo, onSubmit, attemptingRegister }: RegisterFormProps) => {
   const editMode = !isNil(userInfo);
   const initialValues = userInfo || { gender: UserGender.Male };
   const [gender, setGender] = useState(initialValues.gender);
@@ -125,7 +126,7 @@ export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
       )}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" size="large" shape="round" block loading={attemptingRegister}>
           {!editMode ? 'Register' : 'Save'}
         </Button>
       </Form.Item>
