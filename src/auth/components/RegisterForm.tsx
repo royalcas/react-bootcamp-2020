@@ -22,7 +22,7 @@ export const RegisterForm = ({ userInfo, onSubmit }: RegisterFormProps) => {
       layout="vertical"
       name="basic"
       onFinish={values => onSubmit(values as RegisterFormModel)}
-      // initialValues={initialValues}
+      initialValues={initialValues}
     >
       <Form.Item
         label="First Name"

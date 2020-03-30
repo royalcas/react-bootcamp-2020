@@ -56,7 +56,6 @@ export const loadLoginInfo = (): ThunkAction<void, State, AnyAction, Action<Logi
     if (!authApi.isLoggedIn()) {
       return;
     }
-
     dispatch(setInitSessionInfo());
     try {
       const userProfile = await authApi.getCurrentUserProfileInfo();

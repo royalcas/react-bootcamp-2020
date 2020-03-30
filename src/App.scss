@@ -28,3 +28,12 @@
     text-overflow: ellipsis;
   }
 }
+
+.suggestion-container {
+  padding-left: 10px;
+  .ant-card {
+    background: #1890ff;
+    color: white;
+    font-weight: bold;
+  }
+}
