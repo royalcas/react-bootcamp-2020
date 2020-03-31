@@ -25,9 +25,8 @@ export const RegisterForm = ({ userInfo, onSubmit, attemptingRegister }: Registe
       onFinish={values => onSubmit(values as RegisterFormModel)}
       initialValues={initialValues}
     >
-      <Row>
+      <Row gutter={[10, 0]}>
         <Col span={12}>
-          {' '}
           <Form.Item
             label="First Name"
             name="firstName"
@@ -63,7 +62,7 @@ export const RegisterForm = ({ userInfo, onSubmit, attemptingRegister }: Registe
       >
         <Input type="email" disabled={editMode} />
       </Form.Item>
-      <Row>
+      <Row gutter={[10, 0]}>
         <Col span={12}>
           <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Gender is required' }]}>
             <Select defaultValue={gender} onSelect={setGender}>

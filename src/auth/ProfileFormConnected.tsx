@@ -13,10 +13,10 @@ export const ProfileFormConnectedOnly = connect(authStateSelector, mapDispatchTo
 
 export const ProfileFormConnectedPage = () => {
   return (
-    <>
+    <div className="profile-form-container">
       <h1>Profile</h1>
       <ProfileFormConnectedOnly />{' '}
-    </>
+    </div>
   );
 };
 
