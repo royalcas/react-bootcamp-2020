@@ -1,12 +1,14 @@
 ﻿using HealthApp.Domain;
 using HealthApp.Domain.Contracts;
+using Mapster;
 using System;
 using System.Collections.Generic;
 
 namespace HealthApi.Application.Services
 {
-    public abstract class ApplicationRepositoryService<TRepository, TEntity> : IApplicationRepositoryService<TEntity> 
-        where TEntity : Entity 
+    public abstract class ApplicationRepositoryService<TRepository, TModel, TEntity> : IApplicationRepositoryService<TModel> 
+        where TEntity : Entity
+        where TModel : class
         where TRepository: IRepository<TEntity>
     {
         protected readonly TRepository _repository;
@@ -18,24 +20,26 @@ namespace HealthApi.Application.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TModel> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.GetAll().ProjectToType<TModel>();
         }
 
-        public TEntity GetById(string id)
+        public TModel GetById(string id)
         {
-            return _repository.GetById(id);
+            return _repository.GetById(id).Adapt<TModel>();
         }
 
-        public void Add(TEntity entity)
+        public void Add(TModel model)
         {
+            var entity = model.Adapt<TEntity>();
             _repository.Add(entity);
             _unitOfWork.Commit();
         }
 
-        public void Update(TEntity entity)
+        public void Update(TModel model)
         {
+            var entity = model.Adapt<TEntity>();
             _repository.Update(entity);
             _unitOfWork.Commit();
         }

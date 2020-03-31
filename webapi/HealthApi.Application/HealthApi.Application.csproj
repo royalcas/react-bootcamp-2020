@@ -2,7 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <UserSecretsId>105bae58-960b-40d1-848f-60e885f0ee70</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Validators\FluentValidationBootstrap.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Validators\FluentValidationBootstrap.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="Mapster" Version="5.2.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HealthApp.Domain\HealthApp.Domain.csproj" />

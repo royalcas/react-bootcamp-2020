@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HealthApi.Application.Models;
 using HealthApi.Application.Services;
 using HealthApi.Identity;
-using HealthApp.Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthApi.WebApi.Controllers
@@ -34,16 +29,16 @@ namespace HealthApi.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("all/medical-record")]
-        public ActionResult GetAllMedicalRecord()
+        [Route("all/medicalRecord")]
+        public IActionResult GetAllMedicalRecord()
         {
             var medicalRecord = _service.GetAll();
             return Ok(medicalRecord);
         }
 
         [HttpPost]
-        [Route("medical-record")]
-        public ActionResult Post([FromBody] MedicalRecordItem model)
+        [Route("medicalRecord")]
+        public IActionResult Post([FromBody] MedicalRecordItemModel model)
         {
             _service.Add(model);
             return Ok();

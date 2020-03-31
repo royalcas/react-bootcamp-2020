@@ -12,7 +12,9 @@ using HealthApi.Identity.Configuration;
 using HealthApi.WebApi.Filters;
 using HealthApi.InversionOfControl;
 using HealthApi.Persistence;
+using HealthApi.Application.Validators;
 using Microsoft.AspNetCore.Http;
+
 
 namespace HealthApi.WebApi
 {
@@ -56,7 +58,10 @@ namespace HealthApi.WebApi
             });
 
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+                .AddFluentValidation(fv => {
+                    fv.RegisterValidatorsFromAssemblyContaining<BasicUserProfileValidator>();
+                    fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                });
         }
 
 

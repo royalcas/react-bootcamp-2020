@@ -1,5 +1,5 @@
 ﻿
-using HealthApp.Domain;
+using HealthApi.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,16 +13,16 @@ namespace HealthApi.WebApi.Controllers
     [ApiController]
     public class TipsController : ControllerBase
     {
-        private readonly List<PreventionTip> _tips;
+        private readonly List<TipModel> _tips;
 
         public TipsController()
         {
-            this._tips = new List<PreventionTip>();
-            _tips.Add(new PreventionTip() { Title = "COVID-19", Description = "HANDS Wash them often" });
-            _tips.Add(new PreventionTip() { Title = "COVID-19", Description = "ELBOW Cough into it" });
-            _tips.Add(new PreventionTip() { Title = "COVID-19", Description = "FACE Don't touch it" });
-            _tips.Add(new PreventionTip() { Title = "COVID-19", Description = "SPACE Keep safe distance" });
-            _tips.Add(new PreventionTip() { Title = "COVID-19", Description = "HOME Stay if you can" });
+            this._tips = new List<TipModel>();
+            _tips.Add(new TipModel() { Title = "COVID-19", Description = "HANDS Wash them often" });
+            _tips.Add(new TipModel() { Title = "COVID-19", Description = "ELBOW Cough into it" });
+            _tips.Add(new TipModel() { Title = "COVID-19", Description = "FACE Don't touch it" });
+            _tips.Add(new TipModel() { Title = "COVID-19", Description = "SPACE Keep safe distance" });
+            _tips.Add(new TipModel() { Title = "COVID-19", Description = "HOME Stay if you can" });
         }
 
         [HttpGet]

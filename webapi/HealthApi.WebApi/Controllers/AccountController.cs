@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HealthApi.Application.Models;
 using HealthApi.Application.Services;
 using HealthApi.Identity;
 using HealthApi.Identity.Model;
 using HealthApi.WebApi.Model;
-using HealthApp.Domain;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,7 +54,7 @@ namespace HealthApi.WebApi.Controllers
 
         [Authorize]
         [HttpPut]
-        public IActionResult UpdateProfile([FromBody] UserProfile profile)
+        public IActionResult UpdateProfile([FromBody] UserProfileModel profile)
         {
             profile.Id = _user.Id;
             profile.Email = _user.Email;
@@ -65,12 +66,7 @@ namespace HealthApi.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] AccountRegisterDto model) 
         {
-            var registerRequest = new RegisterDto()
-            {
-                Email = model.Email,
-                Password = model.Password,
-            };
-
+            var registerRequest = model.Adapt<RegisterDto>();
             var registerResponse = await _registerService.Register(registerRequest);
 
             if (!registerResponse.Success)
@@ -81,12 +77,7 @@ namespace HealthApi.WebApi.Controllers
             model.Id = registerResponse.UserId;
             _userProfileService.Add(model);
 
-            var loginRequest = new LoginDto()
-            {
-                Username = model.Email,
-                Password = model.Password,
-            };
-
+            var loginRequest = model.Adapt<LoginDto>();
             var loginResponse = await _loginService.Login(loginRequest);
 
             if (!registerResponse.Success)

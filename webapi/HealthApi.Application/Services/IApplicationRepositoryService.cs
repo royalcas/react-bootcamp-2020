@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace HealthApi.Application.Services
 {
-	public interface IApplicationRepositoryService<TEntity> where TEntity : Entity
+	public interface IApplicationRepositoryService<TModel>
+		where TModel: class
 	{
-		void Add(TEntity profile);
-		IEnumerable<TEntity> GetAll();
-		TEntity GetById(string id);
-
-		void Update(TEntity entity);
+		void Add(TModel profile);
+		IEnumerable<TModel> GetAll();
+		TModel GetById(string id);
+		void Update(TModel entity);
 	}
 }

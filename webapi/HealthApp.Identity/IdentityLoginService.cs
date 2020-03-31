@@ -30,7 +30,7 @@ namespace HealthApi.Identity
         public async Task<IdentityResponse> Login(LoginDto model)
         {
             var response = new IdentityResponse();
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             response.Success = result.Succeeded;
 
@@ -39,9 +39,9 @@ namespace HealthApi.Identity
                 return response;
             }
 
-            var user = _userManager.Users.SingleOrDefault(r => r.Email.Equals(model.Username));
+            var user = _userManager.Users.SingleOrDefault(r => r.Email.Equals(model.Email));
             response.UserId = user.Id;
-            response.AuthorizationToken = GenerateJwtToken(model.Username, user);
+            response.AuthorizationToken = GenerateJwtToken(model.Email, user);
 
             return response;
         }
