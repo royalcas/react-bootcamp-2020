@@ -14,7 +14,7 @@ export const LoginForm = ({ onLogin, errorLogin, attemptingLogin }: LoginFormPro
     <Form name="basic" layout="vertical" onFinish={values => onLogin(values as Credentials)}>
       {errorLogin ? <Alert style={{ marginBottom: 15 }} message="Invalid Credentials" type="error" /> : <></>}
       <Form.Item
-        name="username"
+        name="email"
         rules={[
           {
             required: true,

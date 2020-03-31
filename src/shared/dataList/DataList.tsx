@@ -5,6 +5,7 @@ import { SkeletonLoading } from 'shared/loading/Loading';
 
 export type DataListProps = {
   data: any[];
+  actions?: ReactNode | ReactNodeArray;
   isLoading?: boolean;
   emptyMessage?: string;
   callToAction?: () => void;
@@ -29,5 +30,12 @@ export const DataContent = (props: DataListProps) => {
 };
 
 export const DataList = (props: DataListProps) => {
-  return props.isLoading ? <SkeletonLoading /> : <DataContent {...props} />;
+  return props.isLoading ? (
+    <SkeletonLoading />
+  ) : (
+    <>
+      <div className="list-actions">{props.actions}</div>
+      <DataContent {...props} />
+    </>
+  );
 };

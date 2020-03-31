@@ -5,6 +5,7 @@ export enum UserGender {
 }
 
 export type UserProfileInfo = {
+  id: string;
   firstName: string;
   lastName: string;
   gender: UserGender;

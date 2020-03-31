@@ -1,6 +1,10 @@
 # Health Api Dot Net Core 3.1.3
 
-Thisprject has been created using the Dot Net Core SDK
+This project has been created using the Dot Net Core SDK
+
+# Mapping
+
+Mapping made using [Mapster](https://github.com/MapsterMapper/Mapster/wiki/Mappers)
 
 ## Entity Framework Commands
 

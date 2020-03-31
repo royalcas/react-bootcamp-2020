@@ -52,5 +52,6 @@ namespace HealthApi.Persistence.Repository
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+
     }
 }
