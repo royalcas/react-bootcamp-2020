@@ -35,7 +35,7 @@ jobs:
 
       # Run dotnet build and publish
       - name: dotnet build and publish
-      - run: |
+        run: |
           dotnet build ./webapi/HealthApi.WebApi/
           dotnet publish ./webapi/HealthApi.WebApi/ -c Release -o netcorepackage
 
