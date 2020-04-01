@@ -13,5 +13,7 @@ namespace HealthApp.Domain
 		public Gender Gender { get; set; }
 
 		public IEnumerable<MedicalRecordItem> MedicalRecord { get; set; }
+
+		public IEnumerable<UserActivitySubscription> ActivityTopicSubscriptions { get; set; }
 	}
 }

@@ -31,7 +31,7 @@ namespace HealthApi.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             void dbOptionsBuilder(DbContextOptionsBuilder options) =>
-                    options.UseSqlite(Configuration.GetConnectionString("IdentityDatabase")
+                    options.UseSqlServer(Configuration.GetConnectionString("IdentityDatabase")
             );
 
             services.AddDbContextPool<HealthApiIdentityDbContext>(dbOptionsBuilder);
@@ -86,6 +86,7 @@ namespace HealthApi.WebApi
             });
 
             identityDbContext.Database.EnsureCreated();
+            appContext.Database.Migrate();
             appContext.Database.EnsureCreated();
         }
     }

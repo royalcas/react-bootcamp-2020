@@ -1,6 +1,6 @@
 ﻿namespace HealthApp.Domain
 {
-	public class PreventionTip
+	public class PreventionTip: Entity
 	{
 		public string Title { get; set; }
 
