@@ -51,6 +51,7 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+netcorepackage/
 
 # Visual Studio 2015
 .vs/

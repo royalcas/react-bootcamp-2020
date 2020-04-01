@@ -20,4 +20,8 @@ Add-Migration InitialCreate -s HealthApi.WebApi -Context HealthAppContext
 Script-Migration -s HealthApi.WebApi -Context HealthAppContext
 ```
 
+```
+Remove-Migration Recommendations -s HealthApi.WebApi -Context HealthAppContext
+```
+
 [More Information about Migrations](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli)

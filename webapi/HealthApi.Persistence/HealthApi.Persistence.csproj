@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200401021043_Recommendations.cs" />
-    <Compile Remove="Migrations\20200401021043_Recommendations.Designer.cs" />
-    <Compile Remove="Migrations\20200401021812_TableNames.cs" />
-    <Compile Remove="Migrations\20200401021812_TableNames.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
 
